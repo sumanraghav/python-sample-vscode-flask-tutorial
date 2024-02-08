@@ -21,7 +21,7 @@ steps:
     versionSpec: '$(python.version)'
   displayName: 'Use Python $(python.version)'
 
-- script: |
+- bash:  |
     echo "My service name is $CS_SERVICE" 
     echo $(CS-SERVICE-NAME)
     python -m pip install --upgrade pip

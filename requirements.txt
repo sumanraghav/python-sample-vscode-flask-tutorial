@@ -1,1 +1,2 @@
 --index-url https://dl.cloudsmith.io/YfPQNAzRS0eBOEnK/demo/azure-devops/python/simple/ Flask
+--index-url https://dl.cloudsmith.io/YfPQNAzRS0eBOEnK/demo/azure-devops/python/simple/ Requests

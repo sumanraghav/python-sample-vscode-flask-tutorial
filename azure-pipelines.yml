@@ -26,7 +26,7 @@ steps:
 
 - bash:  |
     echo "My service name is $CS_SERVICE" 
-    echo $(CS-SERVICE-NAME)
+    echo "My service API Key is $APIKey
     python -m pip install --upgrade pip
     pip install -r requirements.txt
   displayName: 'Install dependencies'

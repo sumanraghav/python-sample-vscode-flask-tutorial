@@ -1,4 +1,1 @@
---index-url https://dl.cloudsmith.io/YfPQNAzRS0eBOEnK/demo/azure-devops/python/simple/
-my-awesome-package==1.0.0
-
-Flask
+--index-url https://dl.cloudsmith.io/YfPQNAzRS0eBOEnK/demo/azure-devops/python/simple/ Flask

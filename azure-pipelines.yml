@@ -27,6 +27,10 @@ steps:
     python -m pip install --upgrade pip
     pip install -r requirements.txt
   displayName: 'Install dependencies'
+  env:
+    CS_API_KEY: $(CS-SERVICE-API-KEY)
+    CS_SERVICE: $(CS-SERVICE-NAME)
+
 
 - script: |
     pip install pytest pytest-azurepipelines

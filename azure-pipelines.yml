@@ -24,6 +24,9 @@ steps:
 - script: |
     python -m pip install --upgrade pip
     pip install -r requirements.txt
+  env:
+      CS_API_KEY: $(CS-SERVICE-API-KEY)
+      CS_SERVICE: $(CS-SERVICE-NAME)
   displayName: 'Install dependencies'
 
 - script: |

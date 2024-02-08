@@ -1,3 +1,3 @@
---index-url https://$CS_SERVICE:$CS_API_KEY@dl.cloudsmith.io/basic/demo/azure-devops/python/simple/ 
+--index-url https://"$CS_SERVICE":"$CS_API_KEY"@dl.cloudsmith.io/basic/demo/azure-devops/python/simple/ 
 Flask
 Requests==2.20.0

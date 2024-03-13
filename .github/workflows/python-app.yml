@@ -27,7 +27,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install flake8 pytest --index-url https://$CS_SERVICE:$CS_API_KEY@dl.cloudsmith.io/basic/demo/platform-demo/python/simple/
+        pip install flake8 pytest --index-url https://$CS_SERVICE:$CS_API_KEY@dl.cloudsmith.io/basic/demo/glenn-demo/python/simple/
         if [ -f requirements.txt ]; then pip install -r requirements.txt --index-url https://$CS_SERVICE:$CS_API_KEY@dl.cloudsmith.io/basic/demo/platform-demo/python/simple/; fi
       env: 
         CS_SERVICE: ${{ vars.CS_SERVICE }}

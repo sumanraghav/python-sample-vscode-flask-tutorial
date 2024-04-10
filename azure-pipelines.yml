@@ -28,7 +28,7 @@ steps:
     echo "My service name is $CS_SERVICE" 
     echo "My service API Key is $CS_API_KEY"
     python -m pip install --upgrade pip
-    pip install -r requirements.txt --index-url https://$CS_SERVICE:$CS_API_KEY@dl.cloudsmith.io/basic/demo/glenn-demo/python/simple/ 
+    pip install -r requirements.txt --index-url https://$CS_SERVICE:$CS_API_KEY@dl.cloudsmith.io/basic/demo/az-devops/python/simple/ 
   displayName: 'Install dependencies'
   env:
     CS_API_KEY: $(APIKey)

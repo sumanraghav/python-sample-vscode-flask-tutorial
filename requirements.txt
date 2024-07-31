@@ -1,4 +1,3 @@
 Flask
-Requests
+Requests==2.6.0
 numpy
-itext==2.0.1

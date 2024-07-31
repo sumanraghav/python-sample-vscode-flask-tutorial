@@ -1,4 +1,4 @@
-Flask
-Requests==2.6.0
-numpy
 exceptiongroup==1.0.0rc8
+Flask
+Requests
+numpy

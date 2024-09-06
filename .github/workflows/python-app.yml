@@ -41,8 +41,8 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install flake8 pytest --index-url https://$CS_SERVICE:$OIDC_TOKEN@dl.cloudsmith.io/basic/demo/gha-demo/python/simple/
-        if [ -f requirements.txt ]; then pip install -r requirements.txt --index-url https://$CS_SERVICE:$OIDC_TOKEN@dl.cloudsmith.io/basic/demo/gha-demo/python/simple/; fi
+        pip install flake8 pytest --index-url https://$CS_SERVICE:$OIDC_TOKEN@dl.cloudsmith.io/basic/demo/gh-actions/python/simple/
+        if [ -f requirements.txt ]; then pip install -r requirements.txt --index-url https://$CS_SERVICE:$OIDC_TOKEN@dl.cloudsmith.io/basic/demo/gh-actions/python/simple/; fi
       env: 
         CS_SERVICE: ${{ vars.CS_SERVICE }}
         

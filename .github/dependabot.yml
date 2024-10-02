@@ -13,7 +13,8 @@ registries:
     replaces-base: true
 updates:
   - package-ecosystem: "pip" # See documentation for possible values
-    directory: "/" # Location of package manifests   
+    directory: "/" # Location of package manifests
+    insecure-external-code-execution: allow   
     schedule:
       interval: "daily"
     registries:

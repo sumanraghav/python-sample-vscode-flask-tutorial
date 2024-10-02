@@ -5,12 +5,12 @@
 
 version: 2
 updates:
-  - package-ecosystem: "python" # See documentation for possible values
+  - package-ecosystem: "pip" # See documentation for possible values
     directory: "/" # Location of package manifests
     registries:
       python-example:
         type: python-index
-        url: https://example.com/_packaging/my-feed/pypi/example
+        url: https://dl.cloudsmith.io/demo/gh-actions/python/simple/
         username: gh-actions
         password: ${{env.CLOUDSMITH_API_KEY}}
     replaces-base: true

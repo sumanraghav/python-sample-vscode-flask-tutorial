@@ -6,19 +6,17 @@
 trigger:
 - main
 
-pool:
-  vmImage: windows-latest
-
 strategy:
   matrix:
-    Python38:
-      python.version: '3.8'
-    Python39:
-      python.version: '3.9'
-    Python310:
+    Python310_linux:
       python.version: '3.10'
-    Python311:
+      imageName: 'ubuntu-latest'
+    Python311_windows:
       python.version: '3.11'
+      imageName: 'windows-latest'
+
+pool:
+  vmImage: $(imageName)
 
 steps:
 - task: UsePythonVersion@0

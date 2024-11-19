@@ -1,3 +1,4 @@
 Flask
 numpy
-Requests==2.6.0
+Requests
+Pandas

@@ -2,4 +2,4 @@ Flask
 numpy
 Requests
 Pandas
-aws-cdk
+Torch

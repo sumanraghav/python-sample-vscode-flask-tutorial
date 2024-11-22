@@ -1,5 +1,3 @@
 Flask
 numpy
-Requests
-Pandas
-Torch
+Requests==2.6.0

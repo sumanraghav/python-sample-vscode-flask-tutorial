@@ -12,10 +12,7 @@ on:
 permissions:
   id-token: write
   actions: write       # Necessary to cancel workflow executions
-  checks: write        # Necessary to write reports
-  pull-requests: write # Necessary to comment on PRs
   contents: read
-  packages: write
 
 jobs:
   build:
@@ -26,7 +23,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    - name: Install Cloudsmith CLI
+    - name: Auth to Cloudsmith with OIDC
       uses: cloudsmith-io/cloudsmith-cli-action@v1.0.2
       with:
         oidc-namespace: 'demo'

@@ -27,7 +27,7 @@ jobs:
       uses: cloudsmith-io/cloudsmith-cli-action@v1.0.2
       with:
         oidc-namespace: 'demo'
-        oidc-service-slug: ${{ vars.CS_SERVICE }}
+        oidc-service-slug: 'gh-actions'
         oidc-auth-only: 'true'
         
     - name: Set up Python 3.10
@@ -37,10 +37,8 @@ jobs:
         
     - name: Install dependencies
       run: |
-        pip install -r requirements.txt --index-url https://$CS_SERVICE:$CLOUDSMITH_API_KEY@dl.cloudsmith.io/basic/demo/gh-actions/python/simple/
-      env: 
-        CS_SERVICE: ${{ vars.CS_SERVICE }}
-        
+        pip install -r requirements.txt --index-url https://$OIDC_SERVICE_SLUG:$CLOUDSMITH_API_KEY@dl.cloudsmith.io/basic/demo/gh-actions/python/simple/
+    
     - name: Test with pytest
       run: |
         pytest

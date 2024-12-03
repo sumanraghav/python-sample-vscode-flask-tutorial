@@ -47,6 +47,7 @@ jobs:
         if [ -f requirements.txt ]; then pip install -r requirements.txt --index-url https://$CS_SERVICE:$CLOUDSMITH_API_KEY@dl.cloudsmith.io/basic/demo/gh-actions/python/simple/; fi
       env: 
         CS_SERVICE: ${{ vars.CS_SERVICE }}
+        CLOUDSMITH_API_KEY: ${{ env.CLOUDSMITH_API_KEY }}
         
     - name: Lint with flake8
       run: |

@@ -6,13 +6,14 @@ name: Python application
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
 
 permissions:
   id-token: write
   actions: write       # Necessary to cancel workflow executions
   contents: read
+
+env:
+  CLOUDSMITH_SERVICE: gh-actions
 
 jobs:
   build:
@@ -27,7 +28,7 @@ jobs:
       uses: cloudsmith-io/cloudsmith-cli-action@v1.0.2
       with:
         oidc-namespace: 'demo'
-        oidc-service-slug: 'gh-actions'
+        oidc-service-slug: ${{ env.CLOUDSMITH_SERVICE }}
         oidc-auth-only: 'true'
         
     - name: Set up Python 3.10
@@ -37,7 +38,7 @@ jobs:
         
     - name: Install dependencies
       run: |
-        pip install -r requirements.txt --index-url https://$OIDC_SERVICE_SLUG:$CLOUDSMITH_API_KEY@dl.cloudsmith.io/basic/demo/gh-actions/python/simple/
+        pip install -r requirements.txt --index-url https://$CLOUDSMITH_SERVICE:$CLOUDSMITH_API_KEY@dl.cloudsmith.io/basic/demo/gh-actions/python/simple/
     
     - name: Test with pytest
       run: |

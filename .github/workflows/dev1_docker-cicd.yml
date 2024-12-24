@@ -32,7 +32,7 @@ jobs:
       uses: docker/build-push-action@v3
       with:
         push: true
-        tags: ghcr.io/stacyhaha/python-sample-vscode-flask-tutorial/appsvc/staticsite:${{ github.sha }}
+        tags: ghcr.io/stacyhaha/python-sample-vscode-flask-tutorial/myapp:${{ github.sha }}
         file: ./Dockerfile
 
   deploy:

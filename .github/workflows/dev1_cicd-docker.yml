@@ -48,4 +48,4 @@ jobs:
         app-name: 'cicd-docker'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_6074368e92f4496ebf08ec0f8238e59f }}
-        images: 'ghcr.io /${{ secrets.AzureAppService_ContainerUsername_0662e63fa3694eeebfb3e991e27936ca }}/appsvc/staticsite:${{ github.sha }}'
+        images: 'ghcr.io/${{ secrets.AzureAppService_ContainerUsername_0662e63fa3694eeebfb3e991e27936ca }}/appsvc/staticsite:${{ github.sha }}'

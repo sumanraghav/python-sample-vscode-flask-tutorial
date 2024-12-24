@@ -32,7 +32,7 @@ jobs:
       uses: docker/build-push-action@v3
       with:
         push: true
-        tags: ghcr.io/${{ secrets.AzureAppService_ContainerUsername_70e6045170104b8997d27697b11cdfd0 }}/appsvc/staticsite:${{ github.sha }}
+        tags: ghcr.io/stacyhaha/python-sample-vscode-flask-tutorial/appsvc/staticsite:${{ github.sha }}
         file: ./Dockerfile
 
   deploy:

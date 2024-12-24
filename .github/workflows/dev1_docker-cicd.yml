@@ -20,9 +20,9 @@ jobs:
       uses: docker/setup-buildx-action@v2
 
     - name: Log in to registry
-      uses: docker/login-action@v2
+      uses: docker/login-action@v3.3.0
       with:
-        registry: https://ghcr.io/
+        registry: ghcr.io
         username: ${{ secrets.AzureAppService_ContainerUsername_70e6045170104b8997d27697b11cdfd0 }}
         password: ${{ secrets.AzureAppService_ContainerPassword_4e4dafdefa504043a4aada246d62cf72 }}
 

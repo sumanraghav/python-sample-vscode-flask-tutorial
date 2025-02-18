@@ -6,11 +6,10 @@
 trigger:
 - main
 
-pool:
-  vmImage: ubuntu-latest
+pool: resourcehub
 
 container: quay.io/redhat-appstudio/rhtap-task-runner:latest
 
 steps:
-- script: cosign --version
+- script: cosign version
   displayName: Check if we have cosign

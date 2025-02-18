@@ -6,7 +6,8 @@
 trigger:
 - main
 
-pool: acmiel-local
+pool:
+  vmImage: ubuntu-latest
 
 steps:
 - script: echo Hello, world!

@@ -21,5 +21,9 @@ steps:
     #!/bin/bash
     set -euo pipefail
 
-    echo "${TEST_VARIABLE}"
-    echo "${TEST_SECRET}"
+    echo "${test_variable}"
+    echo "${test_secret}"
+
+env:
+  test_variable: $(test_variable)
+  test_secret: $(test_secret)

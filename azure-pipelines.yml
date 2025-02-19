@@ -12,8 +12,6 @@ container: quay.io/redhat-appstudio/rhtap-task-runner:latest
 
 variables:
 - group: acmiel-variables
-- name: TEST_SECRET
-  value: $[variables.test_secret]
 
 steps:
 - script: cosign version
@@ -25,3 +23,6 @@ steps:
 
     echo "${TEST_VARIABLE}"
     echo "${TEST_SECRET}"
+  env:
+    # normal variables are set automatically, but secrets have to be set explicitly :(
+    TEST_SECRET: $(test_secret)

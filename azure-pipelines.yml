@@ -1,0 +1,29 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool: resourcehub
+
+container: quay.io/redhat-appstudio/rhtap-task-runner:latest
+
+variables:
+- group: acmiel-variables
+
+steps:
+- script: cosign version
+  displayName: Check if we have cosign
+
+- script: |
+    #!/bin/bash
+    set -euo pipefail
+
+    echo "${COSIGN_PUBLIC_KEY}"
+    # don't worry, the value will get censored
+    echo "${COSIGN_SECRET_KEY}"
+  env:
+    # normal variables are set automatically, but secrets have to be set explicitly :(
+    COSIGN_SECRET_KEY: $(COSIGN_SECRET_KEY)

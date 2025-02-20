@@ -21,8 +21,9 @@ steps:
     #!/bin/bash
     set -euo pipefail
 
-    echo "${TEST_VARIABLE}"
-    echo "${TEST_SECRET}"
+    echo "${COSIGN_PUBLIC_KEY}"
+    # don't worry, the value will get censored
+    echo "${COSIGN_SECRET_KEY}"
   env:
     # normal variables are set automatically, but secrets have to be set explicitly :(
-    TEST_SECRET: $(test_secret)
+    COSIGN_SECRET_KEY: $(COSIGN_SECRET_KEY)

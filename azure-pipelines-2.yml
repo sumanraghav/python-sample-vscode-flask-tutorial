@@ -17,12 +17,12 @@ variables:
   vmImageName: 'ubuntu-latest'
 
   # Environment name
-  environmentName: 'pythonsamplevscodeflaskappkj'
+  environmentName: 'pythonsamplevscodeflaskappbz'
 
   # Project root folder. Point to the folder containing manage.py file.
   projectRoot: $(System.DefaultWorkingDirectory)
 
-  pythonVersion: '3.11'
+  pythonVersion: '3.9'
 
 stages:
 - stage: Build
@@ -30,7 +30,7 @@ stages:
   jobs:
   - job: BuildJob
     pool:
-      vmImage: $(vmImageName)
+      #vmImage: $(vmImageName)
       name: 'default'
     steps:
     - task: UsePythonVersion@0
@@ -67,7 +67,7 @@ stages:
   jobs:
   - deployment: DeploymentJob
     pool:
-      vmImage: $(vmImageName)
+      #vmImage: $(vmImageName)
       name: 'default'
     environment: $(environmentName)
     strategy:

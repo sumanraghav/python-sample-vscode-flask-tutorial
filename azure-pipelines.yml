@@ -9,10 +9,10 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
-strategy:
-  matrix:
-    Python310:
-      python.version: '3.10'
+#strategy:
+#  matrix:
+#    Python310:
+#      python.version: '3.10'
 
 steps:
 - task: UsePythonVersion@0

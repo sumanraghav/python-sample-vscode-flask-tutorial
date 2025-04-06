@@ -5,6 +5,10 @@
 
 trigger:
   - main
+  - releases/*
+pr:
+  - main
+  - releases/*
 
 pool:
   vmImage: ubuntu-latest

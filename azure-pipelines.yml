@@ -70,8 +70,8 @@ stages:
             persistCredentials: true
 
           - script: |
-              git config user.name "Azure DevOps"
-              git config user.email "buildagent@devops.com"
+              git config user.name "Radu Hasegan"
+              git config user.email "radu,hasegan80@gmail.com"
 
               git fetch --tags
 

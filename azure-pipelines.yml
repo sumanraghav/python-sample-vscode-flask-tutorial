@@ -58,33 +58,28 @@ stages:
     - upload: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
       displayName: 'Upload package'
       artifact: drop
-- stage: Versioning
-  dependsOn: Build
-  condition: succeeded()
+- stage: Release
+  displayName: 'Create Release with Tag'
   jobs:
-      - job: TagAndVersion
-        pool:
-          vmImage: 'ubuntu-latest'
-        steps:
-          - checkout: self
-            persistCredentials: true
+    - job: ReleaseJob
+      displayName: 'Release Job'
+      pool:
+        vmImage: 'ubuntu-latest'
+      steps:
+        - checkout: self
 
-          - script: |
-              git config user.name "Radu Hasegan"
-              git config user.email "radu,hasegan80@gmail.com"
+        # Get the version (tag) from the version.txt file
+        - script: |
+            VERSION=$(cat version.txt)
+            echo "Using version: $VERSION"
+            git tag "$VERSION"
+            git push origin "$VERSION"
+          displayName: 'Create Git Tag'
 
-              git fetch --tags
-
-              latest_tag=$(git describe --tags `git rev-list --tags --max-count=1`)
-              version=${latest_tag#v}
-              IFS='.' read -r major minor patch <<< "$version"
-              new_tag="v$major.$minor.$((patch + 1))"
-              echo "##vso[build.updatebuildnumber]$new_tag"
-
-              git tag $new_tag
-              git push origin $new_tag
-            displayName: 'Version and Tag Source'      
-
+        # Example Release Step: Deploy Application (or any other release tasks)
+        - script: |
+            echo "Deploying version $VERSION"
+          displayName: 'Deploy Application'
 - stage: Deploy
   displayName: 'Deploy Web App'
   dependsOn: Build

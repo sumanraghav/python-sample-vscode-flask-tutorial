@@ -58,6 +58,32 @@ stages:
     - upload: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
       displayName: 'Upload package'
       artifact: drop
+- stage: Versioning
+  dependsOn: Build
+  condition: succeeded()
+  jobs:
+      - job: TagAndVersion
+        pool:
+          vmImage: 'ubuntu-latest'
+        steps:
+          - checkout: self
+            persistCredentials: true
+
+          - script: |
+              git config user.name "Azure DevOps"
+              git config user.email "buildagent@devops.com"
+
+              git fetch --tags
+
+              latest_tag=$(git describe --tags `git rev-list --tags --max-count=1`)
+              version=${latest_tag#v}
+              IFS='.' read -r major minor patch <<< "$version"
+              new_tag="v$major.$minor.$((patch + 1))"
+              echo "##vso[build.updatebuildnumber]$new_tag"
+
+              git tag $new_tag
+              git push origin $new_tag
+            displayName: 'Version and Tag Source'      
 
 - stage: Deploy
   displayName: 'Deploy Web App'

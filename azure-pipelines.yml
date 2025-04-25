@@ -85,9 +85,14 @@ stages:
             echo $new_version > version.txt
             echo "##vso[build.updatebuildnumber]$new_version"
           displayName: 'Increment patch version'
-        - script: |
-            echo "Deploying version $VERSION"
-          displayName: 'Deploy Application'
+        - bash: |
+            git config user.name "Radu Hasegan"
+            git config user.email "radu.hasegan80@gmail.com"
+            git add version.txt
+            git commit -m "Increment version to $(cat version.txt)"
+            git push
+          displayName: 'Commit new version'
+  condition: succeeded()
 - stage: Deploy
   displayName: 'Deploy Web App'
   dependsOn: Build

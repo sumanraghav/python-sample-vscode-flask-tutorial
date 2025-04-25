@@ -86,6 +86,7 @@ stages:
             echo "##vso[build.updatebuildnumber]$new_version"
           displayName: 'Increment patch version'
         - bash: |
+            git checkout main
             git config user.name "Radu Hasegan"
             git config user.email "radu.hasegan80@gmail.com"
             git add version.txt

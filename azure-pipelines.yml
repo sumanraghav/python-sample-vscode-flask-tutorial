@@ -86,6 +86,7 @@ stages:
             echo "##vso[build.updatebuildnumber]$new_version"
           displayName: 'Increment patch version'
         - bash: |
+            git fetch origin
             git checkout main
             git config user.name "Radu Hasegan"
             git config user.email "radu.hasegan80@gmail.com"
@@ -93,7 +94,7 @@ stages:
             git commit -m "Increment version to $(cat version.txt)"
             git push origin main
           displayName: 'Commit new version'
-  condition: succeeded()
+          condition: succeeded()
 - stage: Deploy
   displayName: 'Deploy Web App'
   dependsOn: Build

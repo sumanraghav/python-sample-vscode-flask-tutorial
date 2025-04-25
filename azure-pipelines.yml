@@ -29,7 +29,7 @@ resources:
     - repository: flaskApp
       type: github
       name: RaduHasegan/python-sample-vscode-flask-tutorial
-      endpoint: github.com_RaduHasegan  # replace with your service connection name
+      endpoint: github.com_RaduHasegan
 
 stages:
 - stage: Build
@@ -77,15 +77,14 @@ stages:
           persistCredentials: true
 
         # Get the version (tag) from the version.txt file
-        - script: |
-            git rev-parse --short HEAD
-            VERSION=$(cat version.txt)
-            echo "Using version: $VERSION"
-            git tag "$VERSION"
-            git push origin "$VERSION"
-          displayName: 'Create Git Tag'
-
-        # Example Release Step: Deploy Application (or any other release tasks)
+        - bash: |
+            version=$(cat version.txt)
+            IFS='.' read -ra parts <<< "$version"
+            patch=$((parts[2] + 1))
+            new_version="${parts[0]}.${parts[1]}.$patch"
+            echo $new_version > version.txt
+            echo "##vso[build.updatebuildnumber]$new_version"
+          displayName: 'Increment patch version'
         - script: |
             echo "Deploying version $VERSION"
           displayName: 'Deploy Application'

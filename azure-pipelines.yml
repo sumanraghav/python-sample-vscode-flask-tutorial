@@ -1,0 +1,122 @@
+# Python to Linux Web App on Azure
+# Build your Python project and deploy it to Azure as a Linux Web App.
+# Change python version to one thats appropriate for your application.
+# https://docs.microsoft.com/azure/devops/pipelines/languages/python
+
+trigger:
+- main
+
+variables:
+  # Azure Resource Manager connection created during pipeline creation
+  azureServiceConnectionId: 'b69a0940-36ac-4582-9575-7ccd036b954e'
+
+  # Web app name
+  webAppName: 'webapp1312'
+
+  # Agent VM image name
+  vmImageName: 'ubuntu-latest'
+
+  # Environment name
+  environmentName: 'webapp1312'
+
+  # Project root folder. Point to the folder containing manage.py file.
+  projectRoot: $(System.DefaultWorkingDirectory)
+
+  pythonVersion: '3.11'
+
+resources:
+  repositories:
+    - repository: flaskApp
+      type: github
+      name: RaduHasegan/python-sample-vscode-flask-tutorial
+      endpoint: github.com_RaduHasegan
+
+stages:
+- stage: Build
+  displayName: Build stage
+  jobs:
+  - job: BuildJob
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: UsePythonVersion@0
+      inputs:
+        versionSpec: '$(pythonVersion)'
+      displayName: 'Use Python $(pythonVersion)'
+
+    - script: |
+        python -m venv antenv
+        source antenv/bin/activate
+        python -m pip install --upgrade pip
+        pip install setup
+        pip install -r requirements.txt
+      workingDirectory: $(projectRoot)
+      displayName: "Install requirements"
+
+    - task: ArchiveFiles@2
+      displayName: 'Archive files'
+      inputs:
+        rootFolderOrFile: '$(projectRoot)'
+        includeRootFolder: false
+        archiveType: zip
+        archiveFile: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+        replaceExistingArchive: true
+
+    - upload: $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+      displayName: 'Upload package'
+      artifact: drop
+- stage: Release
+  displayName: 'Create Release with Tag'
+  jobs:
+    - job: ReleaseJob
+      displayName: 'Release Job'
+      pool:
+        vmImage: 'ubuntu-latest'
+      steps:
+        - checkout: flaskApp
+          persistCredentials: true
+
+        # Get the version (tag) from the version.txt file
+        - bash: |
+            version=$(cat version.txt)
+            IFS='.' read -ra parts <<< "$version"
+            patch=$((parts[2] + 1))
+            new_version="${parts[0]}.${parts[1]}.$patch"
+            echo $new_version > version.txt
+            echo "##vso[build.updatebuildnumber]$new_version"
+          displayName: 'Increment patch version'
+        # - bash: |
+        #     git fetch origin
+        #     git checkout dev
+        #     git config user.name "Radu Hasegan"
+        #     git config user.email "radu.hasegan80@gmail.com"
+        #     git add version.txt
+        #     git commit -m "Increment version to $(cat version.txt)"
+        #     git push origin dev
+        #   displayName: 'Commit new version'
+        #   condition: succeeded()
+- stage: Deploy
+  displayName: 'Deploy Web App'
+  dependsOn: Release
+  condition: succeeded()
+  jobs:
+  - deployment: DeploymentJob
+    pool:
+      vmImage: $(vmImageName)
+    environment: $(environmentName)
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+
+          - task: UsePythonVersion@0
+            inputs:
+              versionSpec: '$(pythonVersion)'
+            displayName: 'Use Python version'
+
+          - task: AzureWebApp@1
+            displayName: 'Deploy Azure Web App : webapp1312'
+            inputs:
+              azureSubscription: $(azureServiceConnectionId)
+              appName: $(webAppName)
+              package: $(Pipeline.Workspace)/drop/$(Build.BuildId).zip

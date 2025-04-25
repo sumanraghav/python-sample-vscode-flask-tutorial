@@ -73,7 +73,8 @@ stages:
       pool:
         vmImage: 'ubuntu-latest'
       steps:
-        - checkout: self
+        - checkout: flaskApp
+          persistCredentials: true
 
         # Get the version (tag) from the version.txt file
         - script: |

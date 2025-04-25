@@ -24,6 +24,13 @@ variables:
 
   pythonVersion: '3.11'
 
+resources:
+  repositories:
+    - repository: flaskApp
+      type: github
+      name: RaduHasegan/python-sample-vscode-flask-tutorial
+      endpoint: github.com_RaduHasegan  # replace with your service connection name
+
 stages:
 - stage: Build
   displayName: Build stage

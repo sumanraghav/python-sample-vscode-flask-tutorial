@@ -97,7 +97,7 @@ stages:
           condition: succeeded()
 - stage: Deploy
   displayName: 'Deploy Web App'
-  dependsOn: Build
+  dependsOn: Release
   condition: succeeded()
   jobs:
   - deployment: DeploymentJob
